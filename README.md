@@ -1,125 +1,98 @@
-# World Cup Prediction ETL Pipeline
+# Football World Cup ETL Pipeline
 
-## Overview
+## About
 
-This project is an end-to-end Data Engineering pipeline that predicts the strongest football teams using historical team performance data.
+This project is a personal data engineering project where I built a simple end-to-end ETL pipeline using Python, PostgreSQL and Docker.
 
-The pipeline extracts football team statistics from a CSV file, transforms the raw data into analytical KPIs, calculates a custom team strength score, ranks teams, and loads the final results into PostgreSQL.
+The pipeline reads football team statistics from a CSV file, performs data cleaning and transformation, calculates a custom team strength score, and stores the final predictions in PostgreSQL.
 
-## Architecture
+The main purpose of this project was to understand how a typical ETL pipeline is structured and how different components work together.
 
-```text
-CSV Dataset
-    ↓
-Extract
-    ↓
-Transform KPIs
-    ↓
-Predict Team Strength
-    ↓
-Load to PostgreSQL
-```
+---
 
-## Tech Stack
+## Technologies
 
 - Python
 - Pandas
 - PostgreSQL
 - SQLAlchemy
-- Git
-- GitHub
+- Docker
+- Docker Compose
+
+---
+
+## Pipeline Flow
+
+1. Extract football team data from a CSV file.
+2. Transform the raw data by creating additional KPIs.
+3. Calculate a team strength score.
+4. Load the processed data into PostgreSQL.
+
+---
 
 ## Project Structure
 
-```text
-world_cup_prediction/
-│
-├── data/
-│   └── team_stats.csv
-│
-├── images/
-│   ├── pipeline_success.png
-│   └── postgres_output.png
-│
-├── extract.py
-├── transform.py
-├── predict.py
-├── load.py
-├── main.py
-├── requirements.txt
-├── .gitignore
-└── README.md
+```
+extract.py      -> Reads the dataset
+
+transform.py    -> Cleans and transforms the data
+
+predict.py      -> Calculates team strength
+
+load.py         -> Loads data into PostgreSQL
+
+main.py         -> Runs the complete pipeline
 ```
 
-## KPIs Created
+---
 
-The transformation layer creates the following metrics:
+## Running the Project
 
-- Win Rate
-- Points Per Game
-- Goals Per Game
-- Conceded Per Game
-- Form Score
-- Strength Score
-- Predicted Rank
-
-## Strength Score Logic
-
-The strength score is a rule-based metric calculated using:
-
-```text
-points_per_game
-win_rate
-goal_difference
-goals_per_game
-conceded_per_game
-form_score
-```
-
-Higher strength score means a stronger predicted team.
-
-## Output
-
-The pipeline predicted **Brazil** as the strongest team based on the current scoring logic.
-
-## PostgreSQL Table
-
-Final output is loaded into:
-
-```text
-team_strength_predictions
-```
-
-## How to Run
-
-Install dependencies:
+Clone the repository and run:
 
 ```bash
-pip install -r requirements.txt
+docker compose up --build
 ```
 
-Run pipeline:
+The pipeline will automatically load the processed data into PostgreSQL.
 
-```bash
-python main.py
-```
+---
 
-## Sample Output
+## What I Learned
 
-```text
-Predicted Winner
-----------------
-Team: Brazil
-Strength Score: 179.0
+While building this project I learned:
 
-Pipeline Completed Successfully
-```
+- How ETL pipelines are structured.
+- Working with PostgreSQL using SQLAlchemy.
+- Containerizing Python applications using Docker.
+- Managing multiple services with Docker Compose.
+- Organizing Python code into reusable modules.
+
+---
+
+## Pipeline Execution
+
+![Pipeline](images/pipeline-success.png)
+
+---
+
+## Docker Containers
+
+![Docker](images/docker-containers.png)
+
+---
+
+## PostgreSQL Output
+
+![Postgres](images/postgres_table_1.png)
+
+![Postgres](images/postgres_table_2.png)
+
 
 ## Future Improvements
 
-- Replace CSV source with a working football API
-- Add real FIFA ranking data
-- Add historical World Cup match results
-- Improve prediction model using machine learning
-- Add Airflow orchestration
-- Add dashboard using Power BI or Streamlit
+- Replace the CSV dataset with football APIs.
+- Use Apache Airflow for orchestration.
+- Store raw data in AWS S3.
+- Build dashboards using Power BI or Streamlit.
+- Improve the prediction logic using machine learning.
